@@ -128,7 +128,7 @@ router.get("/bundles", passport.authenticate('basic', {
 
             }
 
-            if (acctType.toString() === 'PayWeekly') {
+            if (acctType === 'PayWeekly') {
 
                 let payWeeklyBundles = [...appData.payWeekly_bundles_2]
 
