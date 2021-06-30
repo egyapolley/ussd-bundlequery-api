@@ -323,7 +323,7 @@ async function getBundlePurchased(subscriberNumber) {
 
 
 function getMessageOnSelect(acctType, bundleCategory){
-    if (acctType === "SurfPlus" && bundleCategory === "All Weather") return null
+    if ((acctType === "SurfPlus" || acctType ==='SurfPlus-WithoutPayWeekly') && bundleCategory === "All Weather") return null
     if (acctType === bundleCategory) return  null
     if (acctType !== bundleCategory && appData.messages[bundleCategory]) return  appData.messages[bundleCategory]
     return  null
