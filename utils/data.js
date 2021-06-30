@@ -13,7 +13,7 @@ const messages = {
 const payWeekly_bundles = [
     {
         bundle_menu_message: "30GB @GHc30/weekly",
-        bundle_value: "7.5GB",
+        bundle_value: "7.50GB",
         bundle_price: "30.00",
         bundle_validity: "7days",
         bundle_id: "30pw",
@@ -90,7 +90,7 @@ const payWeekly_bundles_2=[
     {
         id:5000,
         bundle_menu_message: "30GB @GHc30/weekly",
-        bundle_value: "7.5GB",
+        bundle_value: "7.50GB",
         bundle_price: "30.00",
         bundle_validity: "7days",
         bundle_id: "30pw",
