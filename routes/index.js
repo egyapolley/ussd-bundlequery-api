@@ -157,6 +157,7 @@ router.get("/bundles", passport.authenticate('basic', {
                             bundle_value: bundle.bundle_value,
                             bundle_price: bundle.bundle_price,
                             bundle_validity: bundle.bundle_validity,
+                            bundle_id :bundle.bundle_id,
                             bundle_subscriptionType: bundle.bundle_subscriptionType,
                             message_on_select: bundle.message_on_select
                         }
