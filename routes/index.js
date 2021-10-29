@@ -143,7 +143,7 @@ router.get("/bundles", passport.authenticate('basic', {
                             bundle_value: bundle.bundle_value,
                             bundle_price: bundle.bundle_price,
                             bundle_validity: bundle.bundle_validity,
-                            bundle_id :bundle.bundle_id,
+                            bundle_id: bundle.bundle_id,
                             bundle_subscriptionType: bundle.bundle_subscriptionType,
                             message_on_select: bundle.message_on_select
                         }
@@ -157,7 +157,7 @@ router.get("/bundles", passport.authenticate('basic', {
                             bundle_value: bundle.bundle_value,
                             bundle_price: bundle.bundle_price,
                             bundle_validity: bundle.bundle_validity,
-                            bundle_id :bundle.bundle_id,
+                            bundle_id: bundle.bundle_id,
                             bundle_subscriptionType: bundle.bundle_subscriptionType,
                             message_on_select: bundle.message_on_select
                         }
@@ -180,8 +180,8 @@ router.get("/bundles", passport.authenticate('basic', {
             }
 
             if (categoriesSet.size > 0 && bundleEl_Value_Array.length > 0) {
-                const final_bundles = [];
-                let catArray = [...categoriesSet];
+                let final_bundles = [];
+                let catArray = [...categoriesSet].sort();
                 for (let i = 0; i < catArray.length; i++) {
                     let catValue = catArray[i];
                     let catObject = {};
@@ -209,7 +209,7 @@ router.get("/bundles", passport.authenticate('basic', {
                                     bundle_validity: validity,
                                     bundle_id: bundleId,
                                     bundle_subscriptionType: subscriptionType_temp,
-                                    message_on_select: getMessageOnSelect(acctType,catValue)
+                                    message_on_select: getMessageOnSelect(acctType, catValue)
 
                                 });
                         }
@@ -219,6 +219,7 @@ router.get("/bundles", passport.authenticate('basic', {
                         ...catObject
                     })
 
+
                 }
                 if (["SurfPlus", "Surf"].includes(acctType.toString())) {
                     final_bundles.push({
@@ -226,6 +227,16 @@ router.get("/bundles", passport.authenticate('basic', {
                         bundles: appData.payWeekly_bundles
                     })
                 }
+
+
+                final_bundles = final_bundles.map(value => {
+                    let {name, bundles} = value
+                    if (name === 'Big Mood') {
+                        bundles = bundles.sort((a, b) => parseInt(a.bundle_validity) - parseInt(b.bundle_validity))
+                        return {name, bundles}
+
+                    } else return value
+                })
 
                 res.json({
                     subscriberNumber: subscriberNumber,
@@ -323,11 +334,11 @@ async function getBundlePurchased(subscriberNumber) {
 }
 
 
-function getMessageOnSelect(acctType, bundleCategory){
-    if ((acctType === "SurfPlus" || acctType ==='SurfPlus-WithoutPayWeekly') && bundleCategory === "All Weather") return null
-    if (acctType === bundleCategory) return  null
-    if (acctType !== bundleCategory && appData.messages[bundleCategory]) return  appData.messages[bundleCategory]
-    return  null
+function getMessageOnSelect(acctType, bundleCategory) {
+    if ((acctType === "SurfPlus" || acctType === 'SurfPlus-WithoutPayWeekly') && bundleCategory === "All Weather") return null
+    if (acctType === bundleCategory) return null
+    if (acctType !== bundleCategory && appData.messages[bundleCategory]) return appData.messages[bundleCategory]
+    return null
 }
 
 
