@@ -182,6 +182,10 @@ router.get("/bundles", passport.authenticate('basic', {
             if (categoriesSet.size > 0 && bundleEl_Value_Array.length > 0) {
                 let final_bundles = [];
                 let catArray = [...categoriesSet].sort();
+                if(catArray.includes("Big Mood")){
+                    catArray = catArray.filter(el =>el !== "Big Mood")
+                    catArray.unshift("Big Mood")
+                }
                 for (let i = 0; i < catArray.length; i++) {
                     let catValue = catArray[i];
                     let catObject = {};
