@@ -66,6 +66,7 @@ router.get("/bundles", passport.authenticate('basic', {
         })
     }
     const {subscriberNumber, channel} = req.query;
+
     if (channel.toLowerCase() !== req.user.channel) {
         return res.json({
             status: 2,
@@ -73,6 +74,16 @@ router.get("/bundles", passport.authenticate('basic', {
         })
 
     }
+
+    //To temproray disable
+    if (channel !== "inweb") return res.json({
+        subscriberNumber: subscriberNumber,
+        subscriberAcctType: null,
+        status: 1,
+        reason: "Sorry, Channel is temporarily unavailable",
+        internetBundles: null,
+
+    })
 
     const url = "http://172.25.39.16:2222";
     const sampleHeaders = {
